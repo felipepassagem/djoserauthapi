@@ -11,7 +11,7 @@ function FormRegister() {
 
   return (
     <div>
-      <h1> Register Form</h1>
+      <h1> Signup </h1>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
