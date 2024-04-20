@@ -9,7 +9,7 @@ function ResetPassword() {
       <Col className="m-5">
         <div className="container-fluid bg-dark text-light p-5 ">
           <div className="container bg-dark p-3"></div>
-          <ResetPassworrdForm />
+          <ResetPassworrdForm/>
         </div>
       </Col>
 

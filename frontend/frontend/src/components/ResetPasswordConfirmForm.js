@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate  } from 'react-router-dom';
+import { Link, Navigate, useParams  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
-import { reset_password } from '../actions/auth'
+import { reset_password_confirm } from '../actions/auth'
 
-export const ResetPasswordForm = ({ reset_password }) => {
+export const ResetPasswordConfirmForm = ({ match, reset_password_confirm }) => {
     const [requestSent, setRequestSent] = useState(false)
     const [formData, setFormData] = useState({
-        email: '',
+        new_password: '',
+        re_new_password: ''
       });
     
-      const { email } = formData;
+      const { new_password, re_new_password } = formData;
     
       const handleChange = e => setFormData({...formData, [e.target.name]: e.target.value})
     
       const onSubmit = e => {
         e.preventDefault();
-        reset_password(email)
+
+        const uid = match.params.uid
+        const token = match.params.token
+
+        reset_password_confirm(uid, token, new_password, re_new_password)
         setRequestSent(true)
       }
 
@@ -30,7 +35,12 @@ export const ResetPasswordForm = ({ reset_password }) => {
           <Form onSubmit={e => onSubmit(e)} >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" name='email' value={email} onChange={e => handleChange(e)}  required/>
+              <Form.Control type="password" placeholder="Enter password" name='new_password' value={re_password} onChange={e => handleChange(e)}  required/>
+              
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="password" placeholder="Retype password" name='re_new_password' value={re_new_password} onChange={e => handleChange(e)}  required/>
               
             </Form.Group>
     
@@ -59,4 +69,4 @@ export const ResetPasswordForm = ({ reset_password }) => {
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordForm)
 
-export default connect(null, { reset_password })(ResetPasswordForm)
+export default connect(null, { reset_password_confirm })(ResetPasswordConfirmForm)

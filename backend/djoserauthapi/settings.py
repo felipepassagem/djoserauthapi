@@ -192,8 +192,10 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL':True,
     'SEND_CONFIRMATION_EMAIL':True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,
-    'PASSWORD_RESET_CONFIRM_URL': "/confirm-password/:uid/:token",
+    # 'PASSWORD_RESET_CONFIRM_URL': "confirm-password/{uid}/{token}", //original
+    'PASSWORD_RESET_CONFIRM_URL': "password/reset/confirm/{uid}/{token}",
     'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'TOKEN_MODEL': None,       # To Delete User Must Set it to None
     'SERIALIZERS':{

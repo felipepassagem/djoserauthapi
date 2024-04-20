@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rd /s /q ..\\..\\backend\\build && mkdir ..\\..\\backend\\build && react-scripts build && xcopy /s /e build  ..\\..\\backend\\build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
