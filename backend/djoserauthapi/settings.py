@@ -179,7 +179,7 @@ SIMPLE_JWT = {
     # 'USER_ID_CLAIM': 'user_id',
     'AUTH_HEADER_TYPES': ('JWT',),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
     "ROTATE_REFRESH_TOKENS": True,
     "UPDATE_LAST_LOGIN": True,
 }
@@ -188,7 +188,7 @@ SIMPLE_JWT = {
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'USER_CREATE_PASSWORD_RETYPE':True,
-    'ACTIVATION_URL':'/activate/{uid}/{token}',
+    'ACTIVATION_URL':'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL':True,
     'SEND_CONFIRMATION_EMAIL':True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,

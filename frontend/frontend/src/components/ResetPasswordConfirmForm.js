@@ -10,6 +10,8 @@ export const ResetPasswordConfirmForm = ({ match, reset_password_confirm }) => {
         new_password: '',
         re_new_password: ''
       });
+
+      var   {  uid, token } = useParams();
     
       const { new_password, re_new_password } = formData;
     
@@ -17,9 +19,7 @@ export const ResetPasswordConfirmForm = ({ match, reset_password_confirm }) => {
     
       const onSubmit = e => {
         e.preventDefault();
-
-        const uid = match.params.uid
-        const token = match.params.token
+        console.log(uid, token)
 
         reset_password_confirm(uid, token, new_password, re_new_password)
         setRequestSent(true)
@@ -31,15 +31,15 @@ export const ResetPasswordConfirmForm = ({ match, reset_password_confirm }) => {
 
     return (
         <div>
-          <h1> Request Password Reset:</h1>
+          <h1>Password Reset:</h1>
           <Form onSubmit={e => onSubmit(e)} >
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="password" placeholder="Enter password" name='new_password' value={re_password} onChange={e => handleChange(e)}  required/>
+              <Form.Label>New Password</Form.Label>
+              <Form.Control type="password" placeholder="Enter password" name='new_password' value={new_password} onChange={e => handleChange(e)}  required/>
               
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Confirm New Password</Form.Label>
               <Form.Control type="password" placeholder="Retype password" name='re_new_password' value={re_new_password} onChange={e => handleChange(e)}  required/>
               
             </Form.Group>

@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { logout } from '../actions/auth'
 
 function NavbarTop( { logout, isAuthenticated }) {
+  
   const guestLinks = () => (
     <Fragment>
         <Nav.Link href="/login">Login</Nav.Link>

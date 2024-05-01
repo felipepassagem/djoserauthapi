@@ -28,9 +28,14 @@ const App = () => (
           <Route exact path="/login" Component={LogInScreen}></Route>
           <Route exact path="/signup" Component={RegisterScreen}></Route>
           <Route exact path="/reset-password" Component={ResetPassword}></Route>
-          <Route
+          {/* <Route
             exact
             path="/confirm-password/:uid/:token"
+            Component={ResetPasswordConfirm}
+          ></Route> */}
+          <Route
+            exact
+            path="/password/reset/confirm/:uid/:token"
             Component={ResetPasswordConfirm}
           ></Route>
         </Routes>
