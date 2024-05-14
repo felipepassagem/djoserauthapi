@@ -13,6 +13,8 @@ import {
   SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
+  GOOGLE_AUTH_SUCCESS,
+  GOOGLE_AUTH_FAIL,
   LOGOUT,
 } from "../actions/types";
 
@@ -44,8 +46,8 @@ export default function (state = initialState, action) {
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        isAuthenticated: false
-      }
+        isAuthenticated: false,
+      };
     case USER_LOADED_SUCCESS:
       return {
         ...state,
@@ -61,6 +63,16 @@ export default function (state = initialState, action) {
         ...state,
         user: null,
       };
+    case GOOGLE_AUTH_SUCCESS:
+      localStorage.setItem("access", payload.access);
+
+      return {
+        ...state,
+        isAuthenticated: true,
+        access: payload.access,
+        refresh: payload.refresh,
+      };
+    case GOOGLE_AUTH_FAIL:
     case LOGIN_FAIL:
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
@@ -82,6 +94,7 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         user: null,
       };
+
     case PASSWORD_RESET_SUCCESS:
     case PASSWORD_RESET_FAIL:
     case PASSWORD_RESET_CONFIRM_SUCCESS:

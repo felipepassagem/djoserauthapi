@@ -1,0 +1,17 @@
+
+body{
+    background: rgba(226, 224, 224, 0.537);
+}
+
+.login-signup-form{
+    min-width: 40vw;
+    background-color: rgb(248, 249, 250);
+    border-radius: 1%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+    
+
+}
+
+.home-container{
+    background-color: rgb(248, 249, 250);
+}

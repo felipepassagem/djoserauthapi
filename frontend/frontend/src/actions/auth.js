@@ -15,6 +15,8 @@ import {
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
+  GOOGLE_AUTH_SUCCESS,
+  GOOGLE_AUTH_FAIL,
 } from "./types";
 
 export const checkAuthenticated = () => async (dispatch) => {
@@ -58,6 +60,35 @@ export const checkAuthenticated = () => async (dispatch) => {
   }
 };
 
+export const googleAuthenticate = (state,code) => async dispatch => {
+  if (state && code && !localStorage.getItem('access')) {
+    const config = {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
+
+    const details = {
+      'state': state,
+      'code': code
+    }
+    const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&')
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?${formBody}`, config)
+      dispatch({
+        type: GOOGLE_AUTH_SUCCESS,
+        payload: res.data
+      })
+      dispatch(load_user())
+    } catch (error) {
+      dispatch({
+        type: GOOGLE_AUTH_FAIL
+      })
+    }
+  }
+
+}
+
 export const load_user = () => async (dispatch) => {
   if (localStorage.getItem("access")) {
     const config = {
@@ -95,6 +126,7 @@ export const login = (email, password) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
+    timeout: 10000,
   };
 
   const body = JSON.stringify({ email, password });
@@ -105,16 +137,21 @@ export const login = (email, password) => async (dispatch) => {
       body,
       config
     );
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-
     dispatch(load_user());
+    return [1, "Login successful."]
   } catch (err) {
+    
+    var err_detail = err.response.statusText
+    var err_status = err.response.status
     dispatch({
       type: LOGIN_FAIL,
     });
+    return [0, err_detail, err_status]
   }
 };
 
@@ -139,11 +176,16 @@ export const signup = ( email, password, re_password) => async (dispatch) => {
       type: SIGNUP_SUCCESS,
       payload: res.data,
     });
+    return [1, "Singup successfully."]
 
   } catch (err) {
     dispatch({
       type: SIGNUP_FAIL,
     });
+    var err_detail = err.response.statusText
+    var err_status = err.response.status
+    
+    return [0, err_detail, err_status]
   }
 };
 
@@ -181,6 +223,7 @@ export const reset_password = (email) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
+    timeout: 10000
   };
 
   const body = JSON.stringify({email})

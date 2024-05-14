@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/style.css"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { Provider } from "react-redux";
@@ -28,11 +29,6 @@ const App = () => (
           <Route exact path="/login" Component={LogInScreen}></Route>
           <Route exact path="/signup" Component={RegisterScreen}></Route>
           <Route exact path="/reset-password" Component={ResetPassword}></Route>
-          {/* <Route
-            exact
-            path="/confirm-password/:uid/:token"
-            Component={ResetPasswordConfirm}
-          ></Route> */}
           <Route
             exact
             path="/password/reset/confirm/:uid/:token"

@@ -34,19 +34,12 @@ export const ResetPasswordForm = ({ reset_password }) => {
               
             </Form.Group>
     
-            {/* <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" name='password' value={password} onChange={e => handleChange(e)} minLength='0' required/>
-            </Form.Group> */}
-            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group> */}
+            
             <Button variant="primary" type="submit" >
               Reset Password
             </Button>
           </Form>
-          {/* <p className='mt-3'>Don't have an account? <Link to='/signup'>Sign Up </Link></p>
-          <p className='mt-3'>Forgot your Password? <Link to='/reset-password'>Reset Password </Link></p> */}
+          
         </div>
       );
 }
