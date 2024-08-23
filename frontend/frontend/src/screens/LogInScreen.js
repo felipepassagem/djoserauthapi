@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +15,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 function LogInScreen({ login, isAuthenticated }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -51,6 +54,12 @@ function LogInScreen({ login, isAuthenticated }) {
     return <Navigate to="/" />;
   }
 
+ 
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Container className="d-flex justify-content-center align-items-center">
       <div className="p-5 m-5 login-signup-form">
@@ -70,6 +79,38 @@ function LogInScreen({ login, isAuthenticated }) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Label>Password:</Form.Label>
+      <div className="password-input-container" style={{ position: "relative" }}>
+        <Form.Control
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          name="password"
+          value={password}
+          onChange={(e) => handleChange(e)}
+          minLength="0"
+          required
+          disabled={isLoading}
+        />
+        <Button
+          variant="link"
+          onClick={togglePasswordVisibility}
+          style={{
+            position: "absolute",
+            right: "10px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            padding: 0,
+            color: "#000",
+            textDecoration: "none",
+          }}
+          disabled={isLoading}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </Button>
+      </div>
+    </Form.Group>
+
+          {/* <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password:</Form.Label>
             <Form.Control
               type="password"
@@ -81,7 +122,7 @@ function LogInScreen({ login, isAuthenticated }) {
               required
               disabled={isLoading}
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Button variant="primary" type="submit" disabled={isLoading} >
             {isLoading ? <LoadingSpinner /> : "Login"}

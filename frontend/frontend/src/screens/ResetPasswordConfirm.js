@@ -6,11 +6,13 @@ import { Link, Navigate, useParams  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 import { reset_password_confirm } from '../actions/auth'
+import LoadingSpinner from '../components/LoadingSpinner';
 
 
 export const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
 
   const [requestSent, setRequestSent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         new_password: '',
         re_new_password: ''
@@ -22,12 +24,15 @@ export const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
     
       const handleChange = e => setFormData({...formData, [e.target.name]: e.target.value})
     
-      const onSubmit = e => {
+      const onSubmit = async e => {
         e.preventDefault();
+        setIsLoading(true)
+
         console.log(uid, token)
 
-        reset_password_confirm(uid, token, new_password, re_new_password)
+        var res = await reset_password_confirm(uid, token, new_password, re_new_password)
         setRequestSent(true)
+        setIsLoading(false)
       }
 
       if (requestSent) {
@@ -52,7 +57,7 @@ export const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
     
            
             <Button variant="primary" type="submit" >
-              Reset Password
+            {isLoading ? <LoadingSpinner /> : "Reset Password"}
             </Button>
           </Form>
      

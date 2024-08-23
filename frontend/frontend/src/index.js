@@ -11,7 +11,7 @@ root.render(
   // <React.StrictMode>
   <div>
     <App />
-    <ToastContainer />
+    {/* <ToastContainer /> */}
   </div>
   /* </React.StrictMode> */
 );

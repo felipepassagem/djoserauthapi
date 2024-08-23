@@ -3,17 +3,20 @@ import { Navigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import { verify } from "../actions/auth";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export const ActivationScreen = ({ verify }) => {
   const [verified, setVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   var { uid, token } = useParams();
 
   const verify_account = (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     verify(uid, token);
     setVerified(true);
+    setIsLoading(false)
   };
 
   if (verified) {
@@ -28,7 +31,8 @@ export const ActivationScreen = ({ verify }) => {
         </Row>
         <Row>
           <Button variant="primary" onClick={verify_account}>
-            Verify
+            
+            {isLoading ? <LoadingSpinner /> : "Verify"}
           </Button>
         </Row>
       </div>

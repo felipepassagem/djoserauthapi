@@ -3,10 +3,12 @@ import { Navigate  } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import { reset_password } from '../actions/auth'
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export const ResetPassword = ({ reset_password }) => {
 
   const [requestSent, setRequestSent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
       });
@@ -17,8 +19,10 @@ export const ResetPassword = ({ reset_password }) => {
     
       const onSubmit = async e => {
         e.preventDefault();
+        setIsLoading(true)
         var res = await reset_password(email)
         setRequestSent(true)
+        setIsLoading(false)
       }
 
       if (requestSent) {
@@ -41,7 +45,7 @@ export const ResetPassword = ({ reset_password }) => {
     
             
             <Button variant="primary" type="submit" >
-              Reset Password
+            {isLoading ? <LoadingSpinner /> : "Reset Password"}
             </Button>
           </Form>
           
