@@ -20,7 +20,7 @@ function HomeScreen({ logout, isAuthenticated }) {
       </Fragment>
     )
   }
-  console.log(isAuthenticated)
+
   return (
     <div className="container home-container  p-5 m-5 rounded">
       <div className="container p-5">
